@@ -85,6 +85,7 @@
     <ClCompile Include="PlusOne.cpp" />
     <ClCompile Include="RemoveDuplicatesSortedArray.cpp" />
     <ClCompile Include="RemoveElement.cpp" />
+    <ClCompile Include="RotateArray.cpp" />
     <ClCompile Include="SearchInsertPosition.cpp" />
     <ClCompile Include="TwoSum 2.cpp" />
   </ItemGroup>
