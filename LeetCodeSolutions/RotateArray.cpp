@@ -46,7 +46,7 @@ void rotateArray(vector<int>& nums, int k)
 		cout << i << endl;
 }
 
-int main()
+int RotateArrayMain()
 {
 	vector<int> input = { 1, 2, 3, 4, 5, 6, 7 };
 	rotate(input,4);
