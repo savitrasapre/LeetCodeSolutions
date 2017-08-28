@@ -1,5 +1,6 @@
 #include<iostream>
 #include<vector>
+#include "LeetcodeUtility.h"
 
 using namespace std;
 
@@ -26,15 +27,13 @@ vector<int> plusOne(vector<int>& digits)
 	return digits;
 }
 
-int plusOneMain()
+int PlusOneMain()
 {
 	vector<int> inputNumber = { 9,9};
 	vector<int> outputNumber = plusOne(inputNumber);
 
-	for (auto i : outputNumber)
-	{
-		cout << i;
-	}
+	LeetcodeUtility<int>::printArray(outputNumber);
+	
 	cout << endl;
 
 	return 0;
