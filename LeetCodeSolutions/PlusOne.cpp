@@ -32,7 +32,7 @@ int PlusOneMain()
 	vector<int> inputNumber = { 9,9};
 	vector<int> outputNumber = plusOne(inputNumber);
 
-	LeetcodeUtility<int>::printArray(outputNumber);
+	utility::printArray(outputNumber);
 	
 	cout << endl;
 
