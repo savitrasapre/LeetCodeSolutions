@@ -16,7 +16,7 @@ int missingNumber(std::vector<int>& nums)
 	return count ^ nums.size();
 }
 
-int main()
+int MissingNumberMain()
 {
 	std::vector<int> input { 0, 2, 3, 4, 5 };
 	std::cout << missingNumber(input);
