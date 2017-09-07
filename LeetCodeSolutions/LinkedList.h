@@ -1,33 +1,34 @@
 #include<iostream>
 
+template<typename T>
 class LinkedList
 {
 public:
 	LinkedList();
 	~LinkedList();
-	void insert(int val);
+	void insert(T val);
 	void display();
 	int size = 0;
 private:
 	struct node
 	{
-		int data;
+		T data;
 		node* next;
 	};
 	struct node* head = NULL;
 };
-
-LinkedList::LinkedList()
+template<typename T>
+LinkedList<T>::LinkedList()
 {
 
 }
-
-LinkedList::~LinkedList()
+template<typename T>
+LinkedList<T>::~LinkedList()
 {
 
 }
-
-void LinkedList::insert(int value)
+template<typename T>
+void LinkedList<T>::insert(T value)
 {
 	node* temp = new node;
 	temp->data = value;
@@ -49,8 +50,8 @@ void LinkedList::insert(int value)
 	}
 	LinkedList::size++;
 }
-
-void LinkedList::display()
+template<typename T>
+void LinkedList<T>::display()
 {
 	node* temp = head;
 	std::cout << "Elements of LinkedList are: " << "\n";
