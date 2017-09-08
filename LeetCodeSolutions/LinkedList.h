@@ -9,6 +9,7 @@ public:
 	void insert(T val);
 	void display();
 	void reverse();
+	void deleteNode(T val);
 	int size = 0;
 private:
 	struct node
@@ -88,4 +89,39 @@ void LinkedList<T>::reverse()
 	}
 	head = prev;
 	
+}
+template<typename T>
+void LinkedList<T>::deleteNode(T value)
+{
+	// 1->2->3->4->5->null
+	node* current = new node;
+	node* previous = new node;
+	previous = head;
+    current = head;
+	if (current->data == value)
+	{
+		if (current->next != nullptr)
+		{
+			current = current->next;
+			head = current;
+			return;
+		}
+		else
+			std::cout << "Only one element in the list, cannot delete it.";
+	}
+	while (current!=nullptr)
+	{
+		if (current->data == value)
+		{
+			previous->next = current->next;
+			delete current;
+			return;
+		}
+		else
+		{
+			previous = current;
+			current = current->next;
+		}
+	}
+
 }
