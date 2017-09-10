@@ -10,6 +10,8 @@ public:
 	void display();
 	void reverse();
 	void deleteNode(T val);
+	void deleteDuplicates();
+	bool isPalindrome();
 	int size = 0;
 private:
 	struct node
@@ -17,7 +19,7 @@ private:
 		T data;
 		node* next;
 	};
-	struct node* head = NULL;
+	struct node* head = nullptr;
 };
 
 template<typename T>
@@ -124,4 +126,54 @@ void LinkedList<T>::deleteNode(T value)
 		}
 	}
 
+}
+
+template<typename T>
+void LinkedList<T>::deleteDuplicates()
+{
+	node* current = head;
+	while (current->next!=nullptr && current!=nullptr)
+	{
+		if (current->data == current->next->data)
+		{
+			current->next = current->next->next;
+		}
+		else
+			current = current->next;
+	}
+
+}
+
+template<typename T>
+bool LinkedList<T>::isPalindrome()
+{
+
+	/*
+	The idea is to make a fast pointer that jumps ahead and the slow pointer reverses the list. Then we compare the slow and previous pointers to see if they have the same value or not.
+	*/
+	node* fast = head;
+	node* slow = head;
+	node* prev = NULL;
+
+	while (fast && fast->next)
+	{
+		fast = fast->next->next;
+		node* temp = slow->next;
+		slow->next = prev;
+		prev = slow;
+		slow = temp;
+	}
+	if (fast)
+		slow = slow->next;
+	while (slow && prev)
+	{
+		if (slow->data == prev->data)
+			continue;
+		else
+			return false;
+		slow = slow->next;
+		prev = prev->next;
+	}
+
+	return true;
 }
