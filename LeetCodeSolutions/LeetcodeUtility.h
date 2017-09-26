@@ -1,4 +1,3 @@
-
 namespace utility
 {
 	template<typename T>

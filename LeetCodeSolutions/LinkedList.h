@@ -109,7 +109,7 @@ void LinkedList<T>::deleteNode(T value)
 			return;
 		}
 		else
-			std::cout << "Only one element in the list, cannot delete it.";
+			std::cerr << "Only one element in the list, cannot delete it.";
 	}
 	while (current!=nullptr)
 	{
@@ -177,3 +177,4 @@ bool LinkedList<T>::isPalindrome()
 
 	return true;
 }
+
