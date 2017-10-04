@@ -1,26 +1,28 @@
 #include<iostream>
 #include<vector>
 #include<map>
+#include<stack>
+#include<queue>
 #include<algorithm>
 
-template<typename dataType, typename weightType = int>
+template<typename dataType, typename weightType = size_t>
 class Graph
 {
 private:
 	struct edge
-	{
+	{	
+		edge(dataType vertex, weightType weight)
+		: vertex(vertex), weight(weight){}
 		dataType vertex;
 		weightType weight;
-		edge(dataType& vertex, weightType& weight)
-		: vertex(vertex), weight(weight){}
 	};
 
-	std::vector<vector<edge>> vertices;
-	std::map<dataType, int> indexMap;
+	std::vector<std::vector<edge>> vertices;
+	std::map<dataType, weightType> indexMap;
 	bool isWeighted;
 	bool hasNegWeights;
-	int capacity;
-	int size;
+	size_t capacity;
+	size_t size;
 
 public:
 	Graph();
@@ -30,6 +32,7 @@ public:
 	bool insertEdge(const dataType& src,const dataType& dest);
 	bool insertEdge(const dataType& src,const dataType& dest,const weightType& weight);
 	bool insertVertex(const dataType& newVertex);
+	bool BreadthFirstSearch(const dataType& from);
 };
 
 template<typename datatype,typename weightType>
@@ -65,13 +68,14 @@ template<typename dataType, typename weightType>
 bool Graph<dataType, weightType>::insertVertex(const dataType& vertex)
 {
 	indexMap[vertex] = size++;
-	vertices.push_back(vector<edge>());
+	vertices.push_back(std::vector<edge>());
 	return true;
 }
 
 template<typename dataType, typename weightType>
 bool Graph<dataType, weightType>::insertEdge(const dataType& src, const dataType& dest)
 {
+	//if unweighted then add default edge as 1.
 	return insertEdge(src, dest, 1);
 }
 
@@ -92,5 +96,35 @@ bool Graph<dataType, weightType>::insertEdge(const dataType& src, const dataType
 	return true;
 }
 
+template<typename dataType,typename weightType>
+bool Graph<dataType, weightType>::BreadthFirstSearch(const dataType& from)
+{
+	std::queue<std::pair<dataType, weightType>> bfsQueue;
+	std::vector<bool> visited(size, false);
 
+	//pushing the from vertex
+	bfsQueue.push(std::pair<dataType, weightType>(from, 0));
+
+	visited[indexMap[from]] = true;
+
+
+	while (!bfsQueue.empty())
+	{
+		dataType vertex = bfsQueue.front().first;
+		weightType pathWt = bfsQueue.front().second;
+		int index = indexMap[vertex];
+		std::cout << vertex << "\n";
+		bfsQueue.pop();
+		for (std::vector<edge>::iterator it = vertices[index].begin(); it!=vertices[index].end(); ++it)
+		{
+			if (!visited[indexMap[it->vertex]])
+			{
+				bfsQueue.push(std::pair<dataType, weightType>(it->vertex, 1 + pathWt));
+				visited[indexMap[it->vertex]] = true;
+			}
+		}
+
+	}
+	return true;
+}
 
