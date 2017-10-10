@@ -33,6 +33,7 @@ public:
 	bool insertEdge(const dataType& src,const dataType& dest,const weightType& weight);
 	bool insertVertex(const dataType& newVertex);
 	bool BreadthFirstSearch(const dataType& from);
+	bool DepthFirstSearch(const dataType& from);
 };
 
 template<typename datatype,typename weightType>
@@ -101,12 +102,10 @@ bool Graph<dataType, weightType>::BreadthFirstSearch(const dataType& from)
 {
 	std::queue<std::pair<dataType, weightType>> bfsQueue;
 	std::vector<bool> visited(size, false);
-
 	//pushing the from vertex
 	bfsQueue.push(std::pair<dataType, weightType>(from, 0));
 
 	visited[indexMap[from]] = true;
-
 
 	while (!bfsQueue.empty())
 	{
@@ -127,4 +126,34 @@ bool Graph<dataType, weightType>::BreadthFirstSearch(const dataType& from)
 	}
 	return true;
 }
+
+template<typename dataType,typename weightType>
+bool Graph<dataType, weightType>::DepthFirstSearch(const dataType& from)
+{
+	std::vector<bool> visited(size, false);
+	std::stack<std::pair<dataType, weightType>> dfsStack;
+	dfsStack.push(std::pair<dataType, weightType>(from, 0));
+
+	visited[indexMap[from]] = true;
+
+	while (!dfsStack.empty())
+	{
+		dataType vertex = dfsStack.top().first;
+		weightType pathWt = dfsStack.top().second;
+		int index = indexMap[vertex];
+		std::cout << vertex << "\n";
+		dfsStack.pop();
+		for (std::vector<edge>::iterator it = vertices[index].begin(); it != vertices[index].end();++it)
+		{
+			if (!visited[indexMap[it->vertex]])
+			{
+				dfsStack.push(std::pair<dataType, weightType>(it->vertex, 1 + pathWt));
+				visited[indexMap[it->vertex]] = true;
+			}
+		}
+	}
+	return true;
+
+}
+
 
