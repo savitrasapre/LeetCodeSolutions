@@ -12,22 +12,24 @@ int fibo(int n)
 
 int fib(int n)
 {	
-	static std::map<int, int> hmap;
-	if (n <= 1)
+	if (n < 1)
 		return 1;
 
-	if (hmap.find(n) != std::end(hmap))
+	static std::map<int, int> hmap;
+
+	if (hmap.find(n) != hmap.end())
 	{
-		std::cout << "Found in map" << n << "->" << hmap[n] << "\n";
+		std::cout << "n " << n << "->" << hmap[n] << "\n";
 		return hmap[n];
 	}
-	int res = fib(n - 1) + fib(n - 2);
-	hmap[n] = res;
-	return res;
+	int result = fib(n - 1) + fib(n - 2);
+	hmap[n] = result;
+	return result;
+
 }
 
 
-int main()
+int mainFib()
 {
 	std::cout << fib(40);
 	//std::cout << fibo(40);
