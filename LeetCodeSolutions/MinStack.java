@@ -3,8 +3,6 @@ import java.util.*;
 
 class MinStack {
     
-    private static Node node;
-    private int min = Integer.MAX_VALUE;
     Stack<Node> stack = new Stack<>();
 
     public MinStack() {
@@ -12,21 +10,13 @@ class MinStack {
     }
     
     public void push(int x) {
-        if(x <= min)
-        {
-            min = x;
-        }
-        node = new Node(x,min);
-        stack.push(node);
+        int min = Math.min(x, getMin());
+        stack.push( new Node(x,min));
     }
     
     public void pop() {
             if(!stack.empty()){
                 stack.pop();
-            }
-            else
-            {
-                throw new NoSuchElementException();
             }
     }
     
@@ -35,7 +25,15 @@ class MinStack {
     }
     
     public int getMin() {
-        return stack.peek().currentMinimum;
+        if(stack.empty())
+        {
+            return Integer.MAX_VALUE;
+        }
+        else
+        {
+            return stack.peek().currentMinimum;
+        }
+        
     }
 
     private class Node {
@@ -48,4 +46,5 @@ class MinStack {
             this.currentMinimum = min;
         }
     }
+
 }
