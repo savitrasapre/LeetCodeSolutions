@@ -2,51 +2,56 @@
 
 class BinaryTree 
 {
-        int val;
-        BinaryTree left;
-        BinaryTree right;
-        BinaryTree(int x,BinaryTree left,BinaryTree right) { 
-            this.val = x; 
-            this.left = left;
-            this.right = right;
+        Node root;
+
+        BinaryTree(int val)
+        {
+            root = new Node(val);
+        }
+
+        BinaryTree()
+        {
+            root = null;
+        }
+
+        public  void DFS(Node node)
+        {
+            if(node == null)
+            {
+                System.out.println("Empty!");
+            }
+            System.out.println(node.val);
+
+            if(node.left != null)
+                DFS(node.left);
+            
+            if(node.right != null)
+                DFS(node.right);
+
+        }
+
+        private static class Node {
+            int val;
+            Node left;
+            Node right;
+
+            Node(int x) { 
+                this.val = x; 
+                this.left = this.right = null;
+            }
         }
     
-        public int diameter(BinaryTree root)
-        {
-            return height(root.left) + height(root.right) + 2;
-        }
-
-        public int height(BinaryTree node)
-        {
-            
-            if(node.left == null && node.right == null)
-            {
-                return 0;
-            }
-            
-            int left = height(node.left);
-            int right = height(node.right);
-                
-            if(left < right)
-            { 
-                return right + 1;
-            }
-            else
-            {
-                return left + 1;
-            } 
-            
-        }
-
+    
         public static void main(String[] args)
         {
-            BinaryTree treeObj = 
-                                    new BinaryTree(1,
-                                new BinaryTree(2,
-                            new BinaryTree(4,null,null), new BinaryTree(5, null, null)),            new BinaryTree(3,null,null));
+            BinaryTree treeObj = new BinaryTree();
 
-            //System.out.println(treeObj.height(treeObj.left));
-            //System.out.println(treeObj.height(treeObj.right));                
-            System.out.println(treeObj.diameter(treeObj));
+            treeObj.root = new Node(1);
+            treeObj.root.left = new Node(2);
+            treeObj.root.right = new Node(3);
+            treeObj.root.left.left = new Node(4);
+            treeObj.DFS(treeObj.root);
+
+            
         }
 }
