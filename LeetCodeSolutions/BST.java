@@ -1,5 +1,4 @@
 import java.util.*;
-import java.io.*;
 
 
 class BST {
@@ -14,6 +13,21 @@ class BST {
     BST()
     {
         root = null;
+    }
+
+
+    public Node insertRecursively(Node node,int value)
+    {
+        if(node == null)
+        {   
+            return new Node(value);
+        }
+        if(value < node.val) 
+            node.left = insertRecursively(node.left, value);
+        else
+            node.right = insertRecursively(node.right, value);
+        
+        return node;
     }
 
     //considering unique values only. Duplicates can be a stretch feature.
@@ -52,9 +66,14 @@ class BST {
 
     }
 
+
     public void createLinkedListForLevels()
     {
-        
+        //bfs
+
+       // Queue<Node> queue = new Queue<>();
+
+
     }
 
 
@@ -103,18 +122,24 @@ class BST {
     }
 
     public static void main(String[] args) {
-        BST tree = new BST();
-        int[] input = {1,2,3,4,5};
+        BST tree = new BST(1);
+        int[] input = {2,3,4,5};
+
+        for(int i : input)
+        {
+            tree.insertRecursively(tree.root,i);
+
+        }
 
         //Constructing Tree based on CTCI's 2nd question.
 
-        tree.insert(input[input.length/2]);
-        for (int i = 0; i < input.length/2; i++) {
-            tree.insert(input[i]);
-        }
-        for (int i = input.length/2 + 1; i < input.length; i++) {
-            tree.insert(input[i]);
-        }
+        // tree.insert(input[input.length/2]);
+        // for (int i = 0; i < input.length/2; i++) {
+        //     tree.insert(input[i]);
+        // }
+        // for (int i = input.length/2 + 1; i < input.length; i++) {
+        //     tree.insert(input[i]);
+        // }
 
         tree.printTree();
 

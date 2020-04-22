@@ -1,5 +1,4 @@
-import java.io.CharArrayReader;
-import java.util.*;
+
 
 class StringShift {
     private static String leftShift(String s,int times)
