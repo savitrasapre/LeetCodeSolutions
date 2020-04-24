@@ -67,14 +67,20 @@ class BST {
     }
 
 
-    public void createLinkedListForLevels()
+    public int height(Node node)
     {
-        //bfs
+        if(node == null)
+        {
+            return 0;
+        }
+        
+        int leftHeight = height(node.left);
+        int rightHeight = height(node.right);
 
-       // Queue<Node> queue = new Queue<>();
-
-
+        return Math.max(leftHeight, rightHeight) + 1;
     }
+
+
 
 
     //basically DFS
@@ -122,26 +128,28 @@ class BST {
     }
 
     public static void main(String[] args) {
-        BST tree = new BST(1);
-        int[] input = {2,3,4,5};
+        BST tree = new BST();
+        int[] input = {1,2,3,4,5,6};
 
-        for(int i : input)
-        {
-            tree.insertRecursively(tree.root,i);
+        // for(int i : input)
+        // {
+        //     tree.insertRecursively(tree.root,i);
 
-        }
+        // }
 
         //Constructing Tree based on CTCI's 2nd question.
 
-        // tree.insert(input[input.length/2]);
-        // for (int i = 0; i < input.length/2; i++) {
-        //     tree.insert(input[i]);
-        // }
-        // for (int i = input.length/2 + 1; i < input.length; i++) {
-        //     tree.insert(input[i]);
-        // }
+        tree.insert(input[input.length/2]);
+        for (int i = 0; i < input.length/2; i++) {
+            tree.insert(input[i]);
+        }
+        for (int i = input.length/2 + 1; i < input.length; i++) {
+            tree.insert(input[i]);
+        }
+
+        System.out.println("Height of tree is: " + tree.height(tree.root));
+        
 
         tree.printTree();
-
     }
 }
