@@ -1,10 +1,11 @@
-import org.graalvm.compiler.debug.CSVUtil.Escape;
+import java.util.Queue;
+import java.util.*;
 
 public class BinaryTree
 {
         private Node root;
 
-        BinaryTree(int val)
+        BinaryTree(String val)
         {
             root = new Node(val);
         }
@@ -14,15 +15,104 @@ public class BinaryTree
             root = null;
         }
 
+        public static String serializeTree(Node root)
+        {
+            //convert this tree into a string which can be deserialized to the same tree.
+            /*
+                                1                                                   0,0
+                        2                 3                         1,0                         1,1
+                                    4           5         2,0             2,1             2,2         2,3
+
+                [1,2,3,null,null,4,5]
+       
+            */
+
+           
+            Queue<Node> queue = new LinkedList<>();
+            Stack<String> stack = new Stack<>();
+            
+            queue.add(root);
+
+            while(!queue.isEmpty())
+            {
+                Node temp = queue.poll();
+
+                stack.push(temp.val);
+
+                if(temp.val != null)
+                {
+                    if(temp.left == null)
+                    {  
+                        queue.add(new Node(null));
+                    }
+                    else
+                        queue.add(temp.left);  
+                }
+                
+                if(temp.val != null)
+                {
+                    if(temp.right == null)
+                    {  
+                        queue.add(new Node(null));
+                    }
+                    else
+                        queue.add(temp.right);    
+                }
+
+            }
+
+            while(stack.peek() == null)
+            {
+                stack.pop();
+            }
+
+            return stack.toString();
+        }
+
+/*
+   0 = 1                            1                                                               0      
+   1 = 2                    2                 3                                     1                           2               
+   2 4                                4             5                       3              4            5               6                                                                              
+   3 8                            6       7     8       9                7       8       9     10     11      12      13      14        
+*/  
+        public static Node formulateTree(String[] nodeString,int index)
+        {
+            if(index >= nodeString.length)
+                return null;
+
+            if(nodeString[index].equals("null"))
+                return null;
+
+            Node newNode = new Node(nodeString[index]);
+
+            //left = 2n +1 and right = 2n + 2
+            newNode.left = formulateTree(nodeString, (2 * index) + 1);
+
+            newNode.right = formulateTree(nodeString, (2 * index) + 2 );
+
+            return newNode;
+        }
+
+        
+        public static Node deserializeTree(String inputString)
+        {
+                String[] nodeString = new String[inputString.length()];
+                String actualString = inputString.substring(1, inputString.length() - 1);
+                nodeString = actualString.split(", ");
+
+                Node tempNode = formulateTree(nodeString,0);
+                
+                return tempNode;
+            
+        }
+
+
         public void inOrder(Node node)
         {
             if(node == null)
             {
                 System.out.println("empty");
             }
-
-            //if(node.val < node.left.val)
-                //return false;
 
             if(node.left != null)
                 inOrder(node.left);
@@ -36,25 +126,25 @@ public class BinaryTree
         public boolean isBinarySearchTree(Node node)
         {
            
-            if(node == null)
-            {
-                return true;
-            }
+            // if(node == null)
+            // {
+            //     return true;
+            // }
 
-            if(node.left != null)
-            {
-                if(node.val < node.left.val)
-                    return false;
-            }
+            // if(node.left != null)
+            // {
+            //     if(node.val < node.left.val)
+            //         return false;
+            // }
 
-            if(node.right != null)
-            {
-                if(node.val > node.right.val)
-                    return false;
-            }  
+            // if(node.right != null)
+            // {
+            //     if(node.val > node.right.val)
+            //         return false;
+            // }  
                 
-            if(!isBinarySearchTree(node.left) || !isBinarySearchTree(node.right))
-                return false;
+            // if(!isBinarySearchTree(node.left) || !isBinarySearchTree(node.right))
+            //     return false;
 
             return true;
             
@@ -104,38 +194,41 @@ public class BinaryTree
         }
 
         static class Node {
-            int val;
+            String val;
             Node left;
             Node right;
 
-            public Node(int x) { 
+            public Node(String x) { 
                 this.val = x; 
+                this.left = this.right = null;
+            }
+
+            public Node() { 
+                this.val = null; 
                 this.left = this.right = null;
             }
         }
    
-        /*
-                                        1
-                            2                     3
-                                           5                4
-                                         6    7          2
-        */
+        
 
 
         public static void main(String[] args)
         {
-            BinaryTree treeObj = new BinaryTree(1);
+            BinaryTree treeObj = new BinaryTree("1");
     
-            treeObj.root.left = new Node(2);
-            treeObj.root.right = new Node(3);
-            treeObj.root.right.right = new Node(4);
-            treeObj.root.right.left = new Node(5);
-            treeObj.root.right.left.left = new Node(6);
-            treeObj.root.right.left.right = new Node(7);
+            treeObj.root.left = new Node("2");
+            treeObj.root.right = new Node("3");
+            treeObj.root.right.right = new Node("5");
+            treeObj.root.right.left = new Node("4");
+            
 
             System.out.println("Height of tree " + treeObj.height(treeObj.root));
             System.out.println("Tree is balanced? " + treeObj.isBalanced(treeObj.root));
-                        
+                      
+            System.out.println(serializeTree(treeObj.root));
+
+
+            deserializeTree(serializeTree(treeObj.root));
         }
 }
 
