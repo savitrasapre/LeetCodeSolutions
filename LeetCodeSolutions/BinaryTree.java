@@ -73,7 +73,8 @@ public class BinaryTree
    0 = 1                            1                                                               0      
    1 = 2                    2                 3                                     1                           2               
    2 4                                4             5                       3              4            5               6                                                                              
-   3 8                            6       7     8       9                7       8       9     10     11      12      13      14        
+   3 8                            6       7     8       9                7       8       9     10     11      12      13      14   
+
 */  
         public static Node formulateTree(String[] nodeString,int index)
         {
