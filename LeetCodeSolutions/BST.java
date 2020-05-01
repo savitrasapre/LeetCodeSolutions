@@ -30,6 +30,38 @@ class BST {
         return node;
     }
 
+
+    public void inOrderSuccessor(Node node)
+    {
+    
+        Node currentPtr = node;
+        if(currentPtr.right != null)
+        {
+            //find min in right subtree.
+
+            Node minPtr = node.right;
+            while(minPtr.left != null)
+            {
+                minPtr = minPtr.left;
+            }
+            System.out.println(minPtr.val);
+            return;
+        }
+        else
+        {
+            //go up using the parent pointer.
+            Node parentPtr = node.parent;
+
+            while(parentPtr != null)
+            {
+                currentPtr = parentPtr;
+                parentPtr = parentPtr.parent;
+            }
+            System.out.println(currentPtr.val);
+        }
+
+    }
+
     //considering unique values only. Duplicates can be a stretch feature.
     public void insert(int value)
     {
@@ -63,6 +95,7 @@ class BST {
         {
             temp.left = newNode;
         }
+        newNode.parent = temp;
 
     }
 
@@ -119,37 +152,41 @@ class BST {
         int val;
         Node left;
         Node right;
+        Node parent;
 
         Node(int x)
         {
             this.val = x;
-            this.left = this.right = null;
+            this.parent = this.left = this.right = null;
         }
     }
 
     public static void main(String[] args) {
         BST tree = new BST();
-        int[] input = {1,2,3,4,5,6};
+        int[] input = {20,8,22,4,12,10,14};
 
-        // for(int i : input)
-        // {
-        //     tree.insertRecursively(tree.root,i);
+        for(int i : input)
+        {
+            tree.insert(i);
 
-        // }
+        }
 
         //Constructing Tree based on CTCI's 2nd question.
 
-        tree.insert(input[input.length/2]);
-        for (int i = 0; i < input.length/2; i++) {
-            tree.insert(input[i]);
-        }
-        for (int i = input.length/2 + 1; i < input.length; i++) {
-            tree.insert(input[i]);
-        }
+        // tree.insert(input[input.length/2]);
+        // for (int i = 0; i < input.length/2; i++) {
+        //     tree.insert(input[i]);
+        // }
+        // for (int i = input.length/2 + 1; i < input.length; i++) {
+        //     tree.insert(input[i]);
+        // }
 
         System.out.println("Height of tree is: " + tree.height(tree.root));
         
+        tree.inOrderSuccessor(tree.root.left.right.right);
 
-        tree.printTree();
+        //tree.printTree();
     }
 }
+
+
