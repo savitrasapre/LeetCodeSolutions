@@ -16,6 +16,7 @@ class BST {
     }
 
 
+
     public Node insertRecursively(Node node,int value)
     {
         if(node == null)

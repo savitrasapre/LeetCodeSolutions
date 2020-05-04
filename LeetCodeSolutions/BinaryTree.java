@@ -124,6 +124,24 @@ public class BinaryTree
                 inOrder(node.right);
         }        
 
+
+        public Node firstCommonAncestor(Node currentNode,Node node1, Node node2)
+        {
+            if(currentNode == null)
+                return null;
+
+            if(currentNode.val == node1.val || currentNode.val == node2.val)
+                return currentNode;
+
+            Node leftNode = firstCommonAncestor(currentNode.left, node1, node2);
+            Node rightNode = firstCommonAncestor(currentNode.right, node1, node2);
+
+            if(leftNode != null && rightNode != null)
+                return currentNode;
+
+            return leftNode != null ? leftNode : rightNode;
+        }
+
         public boolean isBinarySearchTree(Node node)
         {
            
@@ -218,6 +236,8 @@ public class BinaryTree
             BinaryTree treeObj = new BinaryTree("1");
     
             treeObj.root.left = new Node("2");
+            treeObj.root.left.left = new Node("6");
+            treeObj.root.left.right = new Node("7");
             treeObj.root.right = new Node("3");
             treeObj.root.right.right = new Node("5");
             treeObj.root.right.left = new Node("4");
@@ -228,7 +248,7 @@ public class BinaryTree
                       
             System.out.println(serializeTree(treeObj.root));
 
-
+            System.out.println(treeObj.firstCommonAncestor(treeObj.root, treeObj.root.right.left, treeObj.root.left.right).val);
             deserializeTree(serializeTree(treeObj.root));
         }
 }
