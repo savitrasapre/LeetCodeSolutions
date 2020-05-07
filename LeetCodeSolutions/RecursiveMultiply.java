@@ -36,8 +36,7 @@ class RecursiveMultiply
         }
         else
         {                                                   
-            int currentSum = multiplication(a - 1 , b);
-            currentSum = currentSum + b;
+            int currentSum = multiplication(a - 1 , b) + b;
             return currentSum;
         }
 
