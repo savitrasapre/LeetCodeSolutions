@@ -13,7 +13,7 @@ class PowerSet
         }
 
         //1, 2, 3
-        1
+        
         List<Integer> temp = new ArrayList<>(inputSet);
         Integer firstElementInCombination = temp.get(0);
         temp.remove(firstElementInCombination);

@@ -1,0 +1,60 @@
+1. Converting from List to primitive array
+	List.stream().maptoInt(i->i).toArray();
+
+2. HashMap intiliazes values to null and not 0.
+
+3. Strings are Immutable in Java. That means once initialized, a String cannot be changed.
+	Use StringBuilder as it will append when we concatenate the string. Using String will allocate space for the new string again.
+  	eg.	String s = "abc";
+		s[2]="1";
+		System.out.print(s);
+		//It will throw an error here.
+		
+4. All operations in a Stack, i.e push,pop,peek,top have worst-case time complexity of O(1).
+
+5. Integer.MAX_VALUE (2147483647)  and Integer.MIN_VALUE (-2147483648) have different values numerically.
+
+6. PriorityQueues are implemented as Min-Heaps. If String are being compared, then by default alphabetical order is maintained while inserting in the structure.
+
+7. To get max value of K,V in HashMap you can use Collections.max/min(map.values())
+
+8. 0x0000 representation is hexadecimal representation. For example, 0x000F is calculated by
+	F x 1 = 15
+	0 x 16 = 0
+	0 x 16 x 16 = 0
+	0 x 16 x 16 x 16 = 0
+	Answer = 15 + 0 + 0 + 0 = 15.
+
+9. Covariant return type is when derived class overrides a function and puts it's own return type in the function and not of the base class. For example,
+
+	class A{
+		A get()
+		{
+			return A;
+		}
+	}
+	
+	class B{
+		B get()
+		{
+			System.out.print("Covariance masti");
+			return B;
+		}
+	
+	}
+
+10. Whenever you want to compare the i+1 element in array to the ith element, start the for loop from 1 and compare (i-1)th element. For example,
+	for(int i=0;i<arr.length;i++)
+	{
+		if(arr[i] == arr[i-1])
+		{}	//do something.
+	}
+
+
+11. If you want to double a number left shit by 1. Example:
+
+	11 = 1011
+	11 << 1 = 10110 = 22.
+	
+	                                                             
+~         
