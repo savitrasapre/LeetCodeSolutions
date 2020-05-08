@@ -3,9 +3,14 @@ import java.util.*;
 
 class FindPathInGrid
 {
-    static List<Set<Integer>> map = new ArrayList<Set<Integer>>();
+    static int[][] memo;
 
-    public static boolean findPath(boolean[][] grid,int i, int j)
+    public static boolean findPath(boolean[][] grid) {
+        memo = new int[grid.length][grid[0].length];
+        return findPathHelper(grid, grid.length - 1, grid[0].length - 1);
+    }
+
+    public static boolean findPathHelper(boolean[][] grid,int i, int j)
     {
         if(i == 0 && j == 0)
             return true;
@@ -18,37 +23,31 @@ class FindPathInGrid
 
         if(i-1 >= 0 && grid[i-1][j] != true)
         {
-            Set<Integer> tempSet = new HashSet<>();
-            tempSet.add(i-1);
-            tempSet.add(j);
-            if(map.contains(tempSet))
+            if(memo[i-1][j])
             {
                 currentUpCellChosen = true;
             }
             else
             {
-                currentUpCellChosen = findPath(grid, i-1, j);
-                Integer[] tempArr = {i-1,j};
-                map.add(new HashSet<>(Arrays.asList(tempArr)));
-                
+                currentUpCellChosen = findPathHelper(grid, i-1, j);
+
+                if(currentUpCellChosen)
+                    memo[i-1][j] = true; 
             }
-            
         }
 
         if(j-1 >= 0 && grid[i][j-1] != true)
         {
-            Set<Integer> tempSet = new HashSet<>();
-            tempSet.add(i);
-            tempSet.add(j-1);
-            if(map.contains(tempSet))
+            if(memo[i][j-1])
             {
-                currentUpCellChosen = true;
+                currentLeftCellChosen = true;
             }
             else
             {
-                currentUpCellChosen = findPath(grid, i, j-1);
-                Integer[] tempArr = {i,j-1};
-                map.add(new HashSet<>(Arrays.asList(tempArr)));
+                currentLeftCellChosen = findPathHelper(grid, i, j-1);
+            
+                if(currentLeftCellChosen)
+                    memo[i][j-1] = true;
             }
         }
 
@@ -66,7 +65,7 @@ class FindPathInGrid
         grid[2][0] = true;
         //grid[7][5] = true;
 
-        System.out.print(findPath(grid,2,2));
+        System.out.print(findPath(grid));
 
     }
 
