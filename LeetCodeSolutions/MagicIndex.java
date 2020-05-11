@@ -18,11 +18,16 @@ class MagicIndex
 
     }
 
+    public static boolean hasMagicIndex(int[] inputArray)
+    {
+        int actualStartingIndex = inputArray[0];
+        return hasMagicIndex(inputArray,actualStartingIndex,inputArray.length - 1);
+    }
+
     public static void main(String[] args) {
-        int[] inputArray = {-1,0,2,2,3,5,9};
+        int[] inputArray = {5,5,6,6,6,6,6};
 
-
-        System.out.println(hasMagicIndex(inputArray,0,inputArray.length - 1));
+        System.out.println(hasMagicIndex(inputArray));
 
     }
 }
