@@ -1,7 +1,7 @@
 import java.util.Map;
 import java.util.Map.Entry;
 
-class PairClass<K,V> extends Map.Entry<K,V>
+class PairClass<K,V> implements Map.Entry<K,V>
 {
     private K key;
     private V value;
